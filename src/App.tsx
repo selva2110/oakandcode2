@@ -9,7 +9,7 @@ import Header from './components/Header';
 
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white">
       <Header />
       <Hero />
       <WhyChooseUs />

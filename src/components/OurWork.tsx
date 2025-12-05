@@ -4,7 +4,7 @@ import { ExternalLink, Github } from 'lucide-react';
 export default function OurWork() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeProject, setActiveProject] = useState(0);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +30,6 @@ export default function OurWork() {
       category: 'Web Development',
       description: 'A modern, scalable e-commerce solution with real-time inventory management and seamless checkout experience.',
       tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-      gradient: 'from-blue-600 to-cyan-600',
       image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1200',
     },
     {
@@ -38,7 +37,6 @@ export default function OurWork() {
       category: 'Mobile Development',
       description: 'Cross-platform fitness tracking app with AI-powered workout recommendations and social features.',
       tags: ['React Native', 'Firebase', 'TensorFlow', 'Redux'],
-      gradient: 'from-green-600 to-emerald-600',
       image: 'https://images.pexels.com/photos/3768894/pexels-photo-3768894.jpeg?auto=compress&cs=tinysrgb&w=1200',
     },
     {
@@ -46,7 +44,6 @@ export default function OurWork() {
       category: 'UI/UX Design',
       description: 'Intuitive financial analytics dashboard with real-time data visualization and customizable widgets.',
       tags: ['Figma', 'React', 'D3.js', 'TailwindCSS'],
-      gradient: 'from-purple-600 to-pink-600',
       image: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1200',
     },
     {
@@ -54,7 +51,6 @@ export default function OurWork() {
       category: 'Full Stack',
       description: 'Comprehensive project management platform with team collaboration, time tracking, and reporting.',
       tags: ['Next.js', 'Supabase', 'TypeScript', 'Prisma'],
-      gradient: 'from-orange-600 to-red-600',
       image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200',
     },
   ];
@@ -63,29 +59,25 @@ export default function OurWork() {
     <section
       id="our-work"
       ref={sectionRef}
-      className="py-32 px-6 relative overflow-hidden"
+      className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-white"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950 to-black"></div>
-
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="text-center mb-20"
+          className="text-center mb-16 sm:mb-20"
           style={{
             opacity: scrollProgress,
             transform: `translateY(${(1 - scrollProgress) * 50}px)`,
           }}
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-              Our Work
-            </span>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-gray-900">
+            Our Work
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             Transforming ideas into exceptional digital experiences
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 perspective-2000">
           {projects.map((project, index) => {
             const cardProgress = Math.max(0, scrollProgress * 2 - index * 0.1);
 
@@ -95,43 +87,40 @@ export default function OurWork() {
                 className="relative group cursor-pointer"
                 style={{
                   opacity: Math.min(1, cardProgress),
-                  transform: `translateY(${(1 - Math.min(1, cardProgress)) * 100}px)`,
+                  transform: `translateY(${(1 - Math.min(1, cardProgress)) * 100}px) rotateX(${(1 - Math.min(1, cardProgress)) * 10}deg)`,
                 }}
-                onMouseEnter={() => setActiveProject(index)}
+                onMouseEnter={() => setHoveredProject(index)}
+                onMouseLeave={() => setHoveredProject(null)}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-30 blur-2xl transition-opacity duration-700 rounded-3xl`}></div>
-
-                <div className="relative bg-gray-900/60 backdrop-blur-sm rounded-3xl border border-gray-800 hover:border-gray-600 transition-all duration-500 overflow-hidden group-hover:scale-[1.02]">
-                  <div className="relative h-64 overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-60`}></div>
+                <div className="relative bg-white rounded-3xl border border-gray-200 transition-all duration-700 overflow-hidden group-hover:shadow-2xl group-hover:scale-[1.02] transform-3d">
+                  <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-100">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-                  </div>
-
-                  <div className="p-8">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className={`text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r ${project.gradient} text-white`}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-medium px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-gray-900">
                         {project.category}
                       </span>
-                      <div className="flex space-x-2">
-                        <button className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors duration-300">
-                          <Github size={18} className="text-gray-300" />
+                      <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <button className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white flex items-center justify-center transition-colors duration-300">
+                          <Github size={16} className="text-gray-900" />
                         </button>
-                        <button className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors duration-300">
-                          <ExternalLink size={18} className="text-gray-300" />
+                        <button className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white flex items-center justify-center transition-colors duration-300">
+                          <ExternalLink size={16} className="text-gray-900" />
                         </button>
                       </div>
                     </div>
+                  </div>
 
-                    <h3 className="text-2xl font-bold mb-3 text-white">
+                  <div className="p-6 sm:p-8">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">
                       {project.title}
                     </h3>
 
-                    <p className="text-gray-400 mb-6 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-600 mb-6 leading-relaxed">
                       {project.description}
                     </p>
 
@@ -139,7 +128,7 @@ export default function OurWork() {
                       {project.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-xs px-3 py-1 rounded-full bg-gray-800/50 text-gray-300 border border-gray-700"
+                          className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200"
                         >
                           {tag}
                         </span>
@@ -153,13 +142,13 @@ export default function OurWork() {
         </div>
 
         <div
-          className="text-center mt-16"
+          className="text-center mt-12 sm:mt-16"
           style={{
             opacity: Math.min(1, scrollProgress * 2 - 0.5),
             transform: `translateY(${(1 - Math.min(1, scrollProgress * 2 - 0.5)) * 50}px)`,
           }}
         >
-          <button className="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-4 rounded-full text-white font-medium text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105">
+          <button className="bg-gray-900 text-white px-8 py-4 rounded-full font-medium text-base hover:bg-gray-800 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-gray-900/20">
             View All Projects
           </button>
         </div>

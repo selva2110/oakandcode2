@@ -71,30 +71,26 @@ export default function Testimonials() {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="py-32 px-6 relative overflow-hidden"
+      className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden bg-white"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black"></div>
-
       <div className="max-w-7xl mx-auto relative z-10">
         <div
-          className="text-center mb-20"
+          className="text-center mb-16 sm:mb-20"
           style={{
             opacity: scrollProgress,
             transform: `translateY(${(1 - scrollProgress) * 50}px)`,
           }}
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-              What Our Clients Say
-            </span>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-gray-900">
+            What Our Clients Say
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Don't just take our word for it. Here's what our clients have to say about working with us.
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          <div className="relative">
+        <div className="max-w-4xl mx-auto perspective-1000">
+          <div className="relative min-h-[400px] sm:min-h-[350px]">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
@@ -103,24 +99,29 @@ export default function Testimonials() {
                     ? 'opacity-100 scale-100 relative'
                     : 'opacity-0 scale-95 absolute inset-0 pointer-events-none'
                 }`}
+                style={{
+                  transform: index === activeTestimonial
+                    ? 'rotateY(0deg)'
+                    : 'rotateY(15deg)',
+                }}
               >
-                <div className="relative bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm p-12 rounded-3xl border border-gray-700">
-                  <div className="absolute top-8 left-8 text-purple-500/20">
-                    <Quote size={64} />
+                <div className="relative bg-white p-8 sm:p-12 rounded-3xl border border-gray-200 shadow-2xl transform-3d">
+                  <div className="absolute top-6 sm:top-8 left-6 sm:left-8 text-gray-200">
+                    <Quote size={48} />
                   </div>
 
                   <div className="relative">
-                    <div className="flex items-center mb-8">
+                    <div className="flex items-center mb-6 sm:mb-8">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star
                           key={i}
-                          size={24}
-                          className="text-yellow-400 fill-yellow-400"
+                          size={20}
+                          className="text-gray-900 fill-gray-900"
                         />
                       ))}
                     </div>
 
-                    <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8 italic">
+                    <p className="text-lg sm:text-xl md:text-2xl text-gray-900 leading-relaxed mb-6 sm:mb-8">
                       "{testimonial.content}"
                     </p>
 
@@ -128,14 +129,14 @@ export default function Testimonials() {
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-purple-500"
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-gray-200"
                       />
                       <div>
-                        <h4 className="text-lg font-bold text-white">
+                        <h4 className="text-base sm:text-lg font-bold text-gray-900">
                           {testimonial.name}
                         </h4>
-                        <p className="text-gray-400">{testimonial.role}</p>
-                        <p className="text-sm text-purple-400">
+                        <p className="text-sm text-gray-600">{testimonial.role}</p>
+                        <p className="text-xs sm:text-sm text-gray-500">
                           {testimonial.company}
                         </p>
                       </div>
@@ -153,8 +154,8 @@ export default function Testimonials() {
                 onClick={() => setActiveTestimonial(index)}
                 className={`transition-all duration-300 rounded-full ${
                   index === activeTestimonial
-                    ? 'w-12 h-3 bg-gradient-to-r from-purple-500 to-pink-500'
-                    : 'w-3 h-3 bg-gray-600 hover:bg-gray-500'
+                    ? 'w-12 h-3 bg-gray-900'
+                    : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
                 }`}
               />
             ))}
@@ -162,29 +163,29 @@ export default function Testimonials() {
         </div>
 
         <div
-          className="mt-20 grid md:grid-cols-3 gap-8 text-center"
+          className="mt-16 sm:mt-20 grid sm:grid-cols-3 gap-6 sm:gap-8 text-center"
           style={{
             opacity: Math.min(1, scrollProgress * 2 - 0.5),
             transform: `translateY(${(1 - Math.min(1, scrollProgress * 2 - 0.5)) * 50}px)`,
           }}
         >
-          <div className="p-8">
-            <div className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+          <div className="p-6 sm:p-8 bg-gray-50 rounded-3xl">
+            <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
               50+
             </div>
-            <p className="text-gray-400">Projects Completed</p>
+            <p className="text-sm sm:text-base text-gray-600">Projects Completed</p>
           </div>
-          <div className="p-8">
-            <div className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+          <div className="p-6 sm:p-8 bg-gray-50 rounded-3xl">
+            <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
               40+
             </div>
-            <p className="text-gray-400">Happy Clients</p>
+            <p className="text-sm sm:text-base text-gray-600">Happy Clients</p>
           </div>
-          <div className="p-8">
-            <div className="text-5xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-2">
+          <div className="p-6 sm:p-8 bg-gray-50 rounded-3xl">
+            <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
               100%
             </div>
-            <p className="text-gray-400">Client Satisfaction</p>
+            <p className="text-sm sm:text-base text-gray-600">Client Satisfaction</p>
           </div>
         </div>
       </div>
