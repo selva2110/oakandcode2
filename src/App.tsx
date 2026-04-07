@@ -1,11 +1,10 @@
-import Hero from './components/Hero';
-import WhyChooseUs from './components/WhyChooseUs';
-import OurStory from './components/OurStory';
-import Services from './components/Services';
-import OurWork from './components/OurWork';
-import Testimonials from './components/Testimonials';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import { Navbar as Header } from './components/components/navbar';
+import { HeroSection as Hero } from './components/components/hero-section';
+import { AboutSection as WhyChooseUs } from './components/components/about-section';
+import { CoursesSection as Services } from './components/components/courses-section';
+import { SuccessStoriesSection as OurWork } from './components/components/success-stories-section';
+import { ExamInfoSection as Testimonials } from './components/components/exam-info-section';
+import { Footer } from './components/components/footer';
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
       <Header />
       <Hero />
       <WhyChooseUs />
-      <OurStory />
       <Services />
       <OurWork />
       <Testimonials />
